@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /user/
+Disallow: /auth/
+Disallow: /modules/
+Disallow: /config/
+Disallow: /database/
+
+Allow: /
+Allow: /index.php
+Allow: /about.php
+Allow: /blogs.php
+Allow: /blog-detail.php
+Allow: /contact.php
+Allow: /assets/
+
+Sitemap: https://mukeshsahu.in/sitemap.xml
