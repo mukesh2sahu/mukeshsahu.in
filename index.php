@@ -209,71 +209,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
     </div>
 </section>
 
-<!-- 3. Featured Courses Section -->
-<section class="section-padding" id="featured-courses">
-    <div class="container">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
-            <div>
-                <div class="section-subtitle">Accelerate Your Skills</div>
-                <h2 class="section-title">Featured Online Courses</h2>
-                <p class="text-muted mb-0">High-impact engineering courses with structured modules and YouTube player integration.</p>
-            </div>
-            <div class="mt-3 mt-md-0">
-                <a href="<?= APP_URL ?>/courses.php" class="btn btn-outline-custom">
-                    View All Courses <i class="fa-solid fa-arrow-right ms-1"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            <?php foreach ($featuredCourses as $course): ?>
-                <div class="col-lg-4 col-md-6">
-                    <div class="custom-card">
-                        <div class="course-thumb-wrapper">
-                            <?php 
-                                $thumbUrl = !empty($course['thumbnail']) && file_exists(APP_ROOT . '/assets/uploads/thumbnails/' . $course['thumbnail'])
-                                    ? ASSETS_URL . '/uploads/thumbnails/' . e($course['thumbnail'])
-                                    : 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80';
-                            ?>
-                            <img src="<?= $thumbUrl ?>" alt="<?= e($course['title']) ?>" class="course-thumb-img">
-                            <span class="course-duration-badge">
-                                <i class="fa-regular fa-clock me-1"></i> <?= e($course['duration']) ?>
-                            </span>
-                        </div>
-                        <div class="course-body">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <span class="card-tag tag-blue"><?= e($course['category_name']) ?></span>
-                                <span class="badge bg-light text-dark border"><?= e($course['skill_level']) ?></span>
-                            </div>
-                            <h4 class="fs-5 mb-2">
-                                <a href="<?= APP_URL ?>/courses.php?id=<?= $course['id'] ?>" class="text-dark hover-primary">
-                                    <?= e($course['title']) ?>
-                                </a>
-                            </h4>
-                            <p class="text-muted small flex-grow-1 mb-3">
-                                <?= e(truncate_text($course['description'], 110)) ?>
-                            </p>
-                            <div class="pt-3 border-top d-flex align-items-center justify-content-between">
-                                <div class="small text-muted">
-                                    <i class="fa-solid fa-layer-group me-1 text-primary"></i> <?= (int)$course['total_lectures'] ?> Lectures
-                                </div>
-                                <a href="<?= APP_URL ?>/courses.php?id=<?= $course['id'] ?>" class="btn btn-sm btn-primary-custom">
-                                    <?php if (is_logged_in()): ?>
-                                        Access Course <i class="fa-solid fa-play ms-1"></i>
-                                    <?php else: ?>
-                                        <i class="fa-solid fa-lock me-1"></i> Login to View
-                                    <?php endif; ?>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
-<!-- 4. Latest IT Jobs Section -->
+<!-- 3. Latest IT Jobs Section -->
 <section class="section-padding bg-white border-top border-bottom" id="latest-jobs">
     <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
@@ -331,6 +267,70 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
                                     <i class="fa-solid fa-lock me-1"></i> Sign In to View
                                 <?php endif; ?>
                             </a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<!-- 4. Featured Courses Section -->
+<section class="section-padding" id="featured-courses">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+            <div>
+                <div class="section-subtitle">Accelerate Your Skills</div>
+                <h2 class="section-title">Featured Online Courses</h2>
+                <p class="text-muted mb-0">High-impact engineering courses with structured modules and YouTube player integration.</p>
+            </div>
+            <div class="mt-3 mt-md-0">
+                <a href="<?= APP_URL ?>/courses.php" class="btn btn-outline-custom">
+                    View All Courses <i class="fa-solid fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <?php foreach ($featuredCourses as $course): ?>
+                <div class="col-lg-4 col-md-6">
+                    <div class="custom-card">
+                        <div class="course-thumb-wrapper">
+                            <?php 
+                                $thumbUrl = !empty($course['thumbnail']) && file_exists(APP_ROOT . '/assets/uploads/thumbnails/' . $course['thumbnail'])
+                                    ? ASSETS_URL . '/uploads/thumbnails/' . e($course['thumbnail'])
+                                    : 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80';
+                            ?>
+                            <img src="<?= $thumbUrl ?>" alt="<?= e($course['title']) ?>" class="course-thumb-img">
+                            <span class="course-duration-badge">
+                                <i class="fa-regular fa-clock me-1"></i> <?= e($course['duration']) ?>
+                            </span>
+                        </div>
+                        <div class="course-body">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="card-tag tag-blue"><?= e($course['category_name']) ?></span>
+                                <span class="badge bg-light text-dark border"><?= e($course['skill_level']) ?></span>
+                            </div>
+                            <h4 class="fs-5 mb-2">
+                                <a href="<?= APP_URL ?>/courses.php?id=<?= $course['id'] ?>" class="text-dark hover-primary">
+                                    <?= e($course['title']) ?>
+                                </a>
+                            </h4>
+                            <p class="text-muted small flex-grow-1 mb-3">
+                                <?= e(truncate_text($course['description'], 110)) ?>
+                            </p>
+                            <div class="pt-3 border-top d-flex align-items-center justify-content-between">
+                                <div class="small text-muted">
+                                    <i class="fa-solid fa-layer-group me-1 text-primary"></i> <?= (int)$course['total_lectures'] ?> Lectures
+                                </div>
+                                <a href="<?= APP_URL ?>/courses.php?id=<?= $course['id'] ?>" class="btn btn-sm btn-primary-custom">
+                                    <?php if (is_logged_in()): ?>
+                                        Access Course <i class="fa-solid fa-play ms-1"></i>
+                                    <?php else: ?>
+                                        <i class="fa-solid fa-lock me-1"></i> Login to View
+                                    <?php endif; ?>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
