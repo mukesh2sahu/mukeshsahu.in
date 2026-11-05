@@ -22,7 +22,7 @@ $userStats = $db->query("
 
 // 2. Course Enrollment Stats
 $courseStats = $db->query("
-    SELECT c.title, COUNT(e.id) as enrollments,
+    SELECT c.id, c.title, COUNT(e.id) as enrollments,
            SUM(CASE WHEN e.progress_percentage >= 100 THEN 1 ELSE 0 END) as completions,
            ROUND(AVG(e.progress_percentage), 1) as avg_progress
     FROM courses c
@@ -125,9 +125,14 @@ $msgUnread = (int)$db->query("SELECT COUNT(*) FROM contact_messages WHERE is_rea
                     <h5 class="fs-6 fw-bold text-dark mb-0"><i class="fa-solid fa-graduation-cap text-purple me-2"></i> Course Progress & Completion Report</h5>
                     <span class="small text-muted">Student enrollment velocity</span>
                 </div>
-                <a href="<?= ADMIN_URL ?>/reports/export.php?type=enrollments" class="btn btn-outline-custom btn-sm">
-                    <i class="fa-solid fa-file-csv me-1"></i> Export Enrollments CSV
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="<?= ADMIN_URL ?>/courses/enrollments.php" class="btn btn-outline-primary btn-sm">
+                        <i class="fa-solid fa-users me-1"></i> View Enrollments
+                    </a>
+                    <a href="<?= ADMIN_URL ?>/reports/export.php?type=enrollments" class="btn btn-outline-custom btn-sm">
+                        <i class="fa-solid fa-file-csv me-1"></i> Export CSV
+                    </a>
+                </div>
             </div>
 
             <div class="table-responsive">
@@ -143,9 +148,17 @@ $msgUnread = (int)$db->query("SELECT COUNT(*) FROM contact_messages WHERE is_rea
                     <tbody>
                         <?php foreach ($courseStats as $cs): ?>
                             <tr>
-                                <td><?= e($cs['title']) ?></td>
-                                <td class="text-center fw-bold"><?= (int)$cs['enrollments'] ?></td>
-                                <td class="text-center text-success"><?= (int)$cs['completions'] ?></td>
+                                <td>
+                                    <a href="<?= ADMIN_URL ?>/courses/enrollments.php?course_id=<?= $cs['id'] ?>" class="text-dark fw-semibold text-decoration-none hover-primary">
+                                        <?= e($cs['title']) ?>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="<?= ADMIN_URL ?>/courses/enrollments.php?course_id=<?= $cs['id'] ?>" class="badge bg-primary-subtle text-primary border text-decoration-none">
+                                        <?= (int)$cs['enrollments'] ?> Students
+                                    </a>
+                                </td>
+                                <td class="text-center text-success fw-bold"><?= (int)$cs['completions'] ?></td>
                                 <td class="text-end fw-bold text-primary"><?= (float)($cs['avg_progress'] ?? 0) ?>%</td>
                             </tr>
                         <?php endforeach; ?>

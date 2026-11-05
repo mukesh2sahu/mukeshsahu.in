@@ -191,7 +191,7 @@ a:hover {
     background: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
                 var(--surface-white);
-    padding: 5.5rem 0 4.5rem;
+    padding: 3.5rem 0 3rem;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -287,7 +287,7 @@ a:hover {
    CARDS & SECTIONS
 ======================================================== */
 .section-padding {
-    padding: 5rem 0;
+    padding: 3.5rem 0;
 }
 
 .section-header {
@@ -428,29 +428,29 @@ a:hover {
     flex-direction: column;
 }
 
-/* AI Tool Card */
+/* AI Tool Card - Compact & Space-Optimized */
 .ai-tool-card {
-    padding: 1.6rem;
+    padding: 1.15rem;
 }
 
 .ai-tool-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 0.65rem;
 }
 
 .ai-tool-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
     border: 1px solid rgba(37, 99, 235, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--electric-blue);
-    font-size: 1.3rem;
+    font-size: 1.15rem;
 }
 
 /* Blog Cards */
@@ -546,6 +546,19 @@ a:hover {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
+    position: sticky;
+    top: 90px;
+}
+
+.custom-card.card-static {
+    transform: none !important;
+    height: auto;
+}
+
+.custom-card.card-static:hover {
+    transform: none !important;
+    box-shadow: var(--shadow-card) !important;
+    border-color: var(--border-color) !important;
 }
 
 .dashboard-nav .nav-link {

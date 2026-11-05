@@ -47,9 +47,14 @@ $courses = $stmt->fetchAll();
             <h4 class="fs-5 fw-bold text-dark mb-1">Courses & Video Modules</h4>
             <p class="text-muted small mb-0">Total <?= count($courses) ?> online courses managed</p>
         </div>
-        <a href="<?= ADMIN_URL ?>/courses/add.php" class="btn btn-primary-custom btn-sm">
-            <i class="fa-solid fa-plus me-1"></i> Add New Course
-        </a>
+        <div class="d-flex gap-2">
+            <a href="<?= ADMIN_URL ?>/courses/enrollments.php" class="btn btn-outline-primary btn-sm">
+                <i class="fa-solid fa-user-graduate me-1"></i> View All Enrollments
+            </a>
+            <a href="<?= ADMIN_URL ?>/courses/add.php" class="btn btn-primary-custom btn-sm">
+                <i class="fa-solid fa-plus me-1"></i> Add New Course
+            </a>
+        </div>
     </div>
 
     <div class="table-responsive">
@@ -118,6 +123,9 @@ $courses = $stmt->fetchAll();
                         </td>
                         <td class="text-end">
                             <div class="d-flex justify-content-end gap-1">
+                                <a href="<?= ADMIN_URL ?>/courses/enrollments.php?course_id=<?= $c['id'] ?>" class="btn btn-sm btn-outline-info" title="View Students Enrolled">
+                                    <i class="fa-solid fa-user-graduate"></i>
+                                </a>
                                 <a href="<?= ADMIN_URL ?>/courses/modules.php?course_id=<?= $c['id'] ?>" class="btn btn-sm btn-outline-primary" title="Manage Modules & YouTube Lectures">
                                     <i class="fa-solid fa-list-check"></i>
                                 </a>

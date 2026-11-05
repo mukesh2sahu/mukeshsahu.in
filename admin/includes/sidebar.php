@@ -36,8 +36,14 @@ $currentUri = $_SERVER['REQUEST_URI'] ?? '';
         </li>
 
         <li class="nav-item">
-            <a class="nav-link <?= str_contains($currentUri, '/courses/') ? 'active' : '' ?>" href="<?= ADMIN_URL ?>/courses/index.php">
+            <a class="nav-link <?= (str_contains($currentUri, '/courses/') && !str_contains($currentUri, 'enrollments.php')) ? 'active' : '' ?>" href="<?= ADMIN_URL ?>/courses/index.php">
                 <i class="fa-solid fa-graduation-cap"></i> Courses & Videos
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link <?= str_contains($currentUri, 'enrollments.php') ? 'active' : '' ?>" href="<?= ADMIN_URL ?>/courses/enrollments.php">
+                <i class="fa-solid fa-user-graduate"></i> Course Enrollments
             </a>
         </li>
 

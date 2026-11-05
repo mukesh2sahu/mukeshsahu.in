@@ -64,15 +64,15 @@ $savedTools = $toolsStmt->fetchAll();
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="container section-padding">
+<div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
     <div class="row g-4">
         <!-- Sidebar -->
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-xl-3 col-xxl-2">
             <?php require_once __DIR__ . '/sidebar.php'; ?>
         </div>
 
         <!-- Main Dashboard Content -->
-        <div class="col-lg-9">
+        <div class="col-lg-9 col-xl-9 col-xxl-10">
             <!-- Welcome Banner -->
             <div class="p-4 rounded-4 mb-4" style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff;">
                 <div class="row align-items-center">
@@ -94,16 +94,18 @@ require_once __DIR__ . '/../includes/header.php';
             <!-- Analytical Cards -->
             <div class="row g-3 mb-4">
                 <div class="col-sm-6 col-md-3">
-                    <div class="stat-card">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <div class="stat-icon-wrapper bg-primary-subtle text-primary">
-                                <i class="fa-solid fa-graduation-cap"></i>
+                    <a href="<?= APP_URL ?>/user/my-courses.php" class="text-decoration-none">
+                        <div class="stat-card" role="button">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <div class="stat-icon-wrapper bg-primary-subtle text-primary">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <span class="text-muted small fw-semibold">Active</span>
                             </div>
-                            <span class="text-muted small fw-semibold">Active</span>
+                            <h3 class="fs-3 fw-bold mb-0 text-dark"><?= $enrolledCount ?></h3>
+                            <div class="small text-primary fw-semibold">Enrolled Courses &rarr;</div>
                         </div>
-                        <h3 class="fs-3 fw-bold mb-0 text-dark"><?= $enrolledCount ?></h3>
-                        <div class="small text-muted">Enrolled Courses</div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-sm-6 col-md-3">

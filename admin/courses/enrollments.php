@@ -36,20 +36,31 @@ $stmt = $db->prepare("
 ");
 $stmt->execute($params);
 $enrollments = $stmt->fetchAll();
+
+$allCoursesList = $db->query("SELECT id, title FROM courses ORDER BY title ASC")->fetchAll();
 ?>
 
 <div class="custom-card p-4">
-    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4 pb-2 border-bottom gap-3">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom gap-3">
         <div>
             <h4 class="fs-5 fw-bold text-dark mb-1">Enrollment List: <?= e($courseTitle) ?></h4>
             <p class="text-muted small mb-0">Total <?= count($enrollments) ?> students registered</p>
         </div>
-        <div class="d-flex gap-2">
-            <?php if ($courseId > 0): ?>
-                <a href="<?= ADMIN_URL ?>/courses/enrollments.php" class="btn btn-outline-secondary btn-sm">
-                    View All Courses Enrollments
-                </a>
-            <?php endif; ?>
+        <div class="d-flex flex-wrap align-items-center gap-2">
+            <div class="d-flex align-items-center gap-1">
+                <label for="courseFilterSelect" class="small text-muted fw-semibold me-1">Filter:</label>
+                <select id="courseFilterSelect" class="form-select form-select-sm" style="min-width: 220px;" onchange="window.location.href='<?= ADMIN_URL ?>/courses/enrollments.php' + (this.value ? '?course_id=' + this.value : '')">
+                    <option value="">All Courses</option>
+                    <?php foreach ($allCoursesList as $cItem): ?>
+                        <option value="<?= $cItem['id'] ?>" <?= $courseId === (int)$cItem['id'] ? 'selected' : '' ?>>
+                            <?= e($cItem['title']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <a href="<?= ADMIN_URL ?>/reports/export.php?type=enrollments" class="btn btn-outline-success btn-sm">
+                <i class="fa-solid fa-file-csv me-1"></i> Export CSV
+            </a>
             <a href="<?= ADMIN_URL ?>/courses/index.php" class="btn btn-outline-secondary btn-sm">
                 &larr; Back to Courses
             </a>

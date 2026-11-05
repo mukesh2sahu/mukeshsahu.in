@@ -31,11 +31,11 @@ $twitter = get_setting('social_twitter', 'https://twitter.com');
 
 <!-- About Hero / Header -->
 <section class="section-padding bg-white border-bottom">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="row align-items-center g-5">
             <div class="col-lg-4 text-center">
                 <div class="hero-avatar-frame mx-auto shadow-lg" style="width: 290px; height: 290px;">
-                    <img src="<?= ASSETS_URL ?>/images/profile-mukesh.png" alt="<?= e($name) ?>" class="hero-avatar-img">
+                    <img src="<?= ASSETS_URL ?>/images/profile-mukesh.svg?v=<?= APP_VERSION ?>" alt="<?= e($name) ?>" class="hero-avatar-img">
                 </div>
                 <div class="mt-4 d-flex justify-content-center gap-2">
                     <a href="<?= e($linkedin) ?>" target="_blank" rel="noopener noreferrer" class="btn btn-outline-custom btn-sm">
@@ -83,7 +83,7 @@ $twitter = get_setting('social_twitter', 'https://twitter.com');
 
 <!-- Experience & Education Dual Column -->
 <section class="section-padding">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="row g-5">
             <!-- Work Experience Timeline -->
             <div class="col-lg-6">
@@ -156,7 +156,7 @@ $twitter = get_setting('social_twitter', 'https://twitter.com');
 
 <!-- Technical Skills & Proficiency -->
 <section class="section-padding bg-white border-top border-bottom">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="text-center max-w-700 mx-auto mb-5">
             <div class="section-subtitle">Skills Matrix</div>
             <h2 class="section-title">Technical Expertise & Core Competencies</h2>
@@ -165,7 +165,7 @@ $twitter = get_setting('social_twitter', 'https://twitter.com');
 
         <div class="row g-4">
             <?php foreach ($skillsList as $skill): ?>
-                <div class="col-md-6">
+                <div class="col-md-6 col-xxl-3">
                     <div class="p-3 bg-light rounded-3 border">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="fw-bold text-dark"><?= e($skill['name'] ?? '') ?></span>
@@ -183,7 +183,7 @@ $twitter = get_setting('social_twitter', 'https://twitter.com');
 
 <!-- Key Projects and Achievements -->
 <section class="section-padding">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="section-header text-center">
             <div class="section-subtitle">Portfolio & Milestones</div>
             <h2 class="section-title">Key Projects & Achievements</h2>

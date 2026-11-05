@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<div class="custom-card p-4 p-md-5" style="max-width: 750px;">
+<div class="custom-card p-4 w-100" style="height: auto;">
     <div class="mb-4 pb-2 border-bottom d-flex justify-content-between align-items-center">
         <div>
             <h4 class="fs-5 fw-bold text-dark mb-0">Create Platform Account</h4>

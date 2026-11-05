@@ -11,7 +11,7 @@ $isUserLoggedIn = is_logged_in();
 $user = current_user();
 ?>
 <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <!-- Brand Logo & Name -->
         <a class="navbar-brand navbar-brand-logo" href="<?= APP_URL ?>/index.php">
             <span class="brand-badge">MS</span>
@@ -91,6 +91,11 @@ $user = current_user();
                                 <li>
                                     <a class="dropdown-item py-2 fw-semibold text-primary" href="<?= ADMIN_URL ?>/dashboard.php">
                                         <i class="fa-solid fa-gauge-high me-2"></i> Admin Panel
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2 text-primary" href="<?= ADMIN_URL ?>/courses/enrollments.php">
+                                        <i class="fa-solid fa-user-graduate me-2"></i> Course Enrollments
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider my-1"></li>

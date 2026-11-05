@@ -93,7 +93,7 @@ $jobs = $jobsStmt->fetchAll();
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="container section-padding">
+<div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
     <!-- Header Banner -->
     <div class="p-4 p-md-5 rounded-4 mb-5" style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff;">
         <div class="row align-items-center">
@@ -190,7 +190,7 @@ require_once __DIR__ . '/includes/header.php';
     <?php if (!empty($jobs)): ?>
         <div class="row g-4">
             <?php foreach ($jobs as $job): ?>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 col-xxl-3">
                     <div class="custom-card job-card h-100">
                         <div class="d-flex align-items-start justify-content-between mb-3">
                             <div class="job-company-logo">

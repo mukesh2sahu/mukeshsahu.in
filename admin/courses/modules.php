@@ -325,6 +325,10 @@ $lecturesStmt = $db->prepare("SELECT * FROM course_lectures WHERE course_id = :c
 $lecturesStmt->execute([':cid' => $courseId]);
 $allLectures = $lecturesStmt->fetchAll();
 
+$enrollCountStmt = $db->prepare("SELECT COUNT(*) FROM course_enrollments WHERE course_id = :cid");
+$enrollCountStmt->execute([':cid' => $courseId]);
+$enrollCount = (int)$enrollCountStmt->fetchColumn();
+
 $totalDurationMins = 0;
 $totalFreePreviews = 0;
 foreach ($allLectures as $lec) {
@@ -375,12 +379,17 @@ foreach ($allLectures as $l) {
                     <span><i class="fa-regular fa-clock text-info me-1"></i><strong><?= $formattedDuration ?></strong> Total</span>
                     <span>&bull;</span>
                     <span><i class="fa-solid fa-unlock text-success me-1"></i><strong><?= $totalFreePreviews ?></strong> Free Preview</span>
+                    <span>&bull;</span>
+                    <span><i class="fa-solid fa-user-graduate text-warning me-1"></i><a href="<?= ADMIN_URL ?>/courses/enrollments.php?course_id=<?= $course['id'] ?>" class="text-decoration-none text-muted" title="View Enrolled Students"><strong><?= $enrollCount ?></strong> Students Enrolled</a></span>
                 </div>
             </div>
         </div>
 
         <!-- Quick Actions -->
         <div class="d-flex align-items-center gap-1 flex-shrink-0">
+            <a href="<?= ADMIN_URL ?>/courses/enrollments.php?course_id=<?= $course['id'] ?>" class="btn btn-outline-warning btn-sm py-1 px-2" style="font-size: 0.78rem;" title="View Course Enrollments">
+                <i class="fa-solid fa-user-graduate me-1"></i> Enrollments (<?= $enrollCount ?>)
+            </a>
             <a href="<?= APP_URL ?>/course-detail.php?id=<?= $course['id'] ?>" target="_blank" class="btn btn-outline-info btn-sm py-1 px-2" style="font-size: 0.78rem;" title="Public Course Page">
                 <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Public
             </a>

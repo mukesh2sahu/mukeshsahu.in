@@ -31,16 +31,16 @@ $myCourses = $stmt->fetchAll();
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="container section-padding">
+<div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
     <div class="row g-4">
         <!-- Sidebar -->
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-xl-3 col-xxl-2">
             <?php require_once __DIR__ . '/sidebar.php'; ?>
         </div>
 
         <!-- Enrolled Courses Content -->
-        <div class="col-lg-9">
-            <div class="custom-card p-4 p-md-5">
+        <div class="col-lg-9 col-xl-9 col-xxl-10">
+            <div class="custom-card card-static p-4 p-md-5 w-100">
                 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4 pb-3 border-bottom gap-3">
                     <div>
                         <h3 class="fs-4 fw-bold mb-1">My Enrolled Courses</h3>

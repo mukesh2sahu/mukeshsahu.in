@@ -64,9 +64,9 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
 <!-- 1. Hero Section -->
 <section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-7">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
+        <div class="row align-items-center g-4 g-xl-5">
+            <div class="col-lg-7 col-xl-7 col-xxl-8">
                 <div class="hero-pill">
                     <i class="fa-solid fa-sparkles"></i> Welcome to the Official Platform
                 </div>
@@ -103,10 +103,10 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
                 </div>
             </div>
             
-            <div class="col-lg-5 text-center">
+            <div class="col-lg-5 col-xl-5 col-xxl-4 text-center">
                 <div class="hero-avatar-wrapper">
                     <div class="hero-avatar-frame mx-auto">
-                        <img src="<?= ASSETS_URL ?>/images/profile-mukesh.png" alt="Mukesh Sahu" class="hero-avatar-img">
+                        <img src="<?= ASSETS_URL ?>/images/profile-mukesh.svg?v=<?= APP_VERSION ?>" alt="Mukesh Sahu" class="hero-avatar-img">
                     </div>
                     <div class="hero-badge-floating badge-top-right">
                         <div class="stat-icon-wrapper bg-primary-subtle text-primary">
@@ -134,10 +134,10 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
 <!-- 2. About Me Preview Section -->
 <section class="section-padding bg-white border-bottom">
-    <div class="container">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-5">
-                <div class="p-4 p-md-5 rounded-4" style="background: linear-gradient(145deg, #0f172a, #1e293b); color: #fff;">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
+        <div class="row align-items-center g-4 g-xl-5">
+            <div class="col-lg-5 col-xl-4 col-xxl-4">
+                <div class="p-4 p-md-5 rounded-4 h-100" style="background: linear-gradient(145deg, #0f172a, #1e293b); color: #fff;">
                     <span class="badge bg-primary px-3 py-2 mb-3 rounded-pill text-uppercase" style="letter-spacing: 1px;">Instructor & Architect</span>
                     <h3 class="text-white mb-3">Hi, I'm Mukesh Sahu</h3>
                     <p class="text-light opacity-75 mb-4" style="line-height: 1.8;">
@@ -150,7 +150,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-7 col-xl-8 col-xxl-8">
                 <div class="ps-lg-4">
                     <div class="section-subtitle">Why This Platform?</div>
                     <h2 class="section-title">Designed for Modern Developers & Tech Aspirants</h2>
@@ -211,7 +211,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
 <!-- 3. Latest IT Jobs Section -->
 <section class="section-padding bg-white border-top border-bottom" id="latest-jobs">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
             <div>
                 <div class="section-subtitle">Career Opportunities</div>
@@ -227,7 +227,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
         <div class="row g-4">
             <?php foreach ($latestJobs as $job): ?>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 col-xxl-3">
                     <div class="custom-card job-card">
                         <div class="d-flex align-items-start justify-content-between mb-3">
                             <div class="job-company-logo">
@@ -277,7 +277,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
 <!-- 4. Featured Courses Section -->
 <section class="section-padding" id="featured-courses">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
             <div>
                 <div class="section-subtitle">Accelerate Your Skills</div>
@@ -293,7 +293,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
         <div class="row g-4">
             <?php foreach ($featuredCourses as $course): ?>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 col-xxl-3">
                     <div class="custom-card">
                         <div class="course-thumb-wrapper">
                             <?php 
@@ -341,7 +341,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
 <!-- 5. Popular AI Tools Section -->
 <section class="section-padding" id="ai-tools">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
             <div>
                 <div class="section-subtitle">Boost Productivity</div>
@@ -355,33 +355,33 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
             </div>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3">
             <?php foreach ($featuredAiTools as $tool): ?>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 col-xxl-2">
                     <div class="custom-card ai-tool-card">
-                        <div class="ai-tool-header">
+                        <div class="ai-tool-header mb-2">
                             <div class="ai-tool-icon">
                                 <i class="fa-solid <?= e($tool['category_icon'] ?? 'fa-robot') ?>"></i>
                             </div>
-                            <span class="card-tag <?= $tool['pricing_type'] === 'Free' ? 'tag-green' : ($tool['pricing_type'] === 'Freemium' ? 'tag-blue' : 'tag-orange') ?>">
+                            <span class="card-tag py-0 px-2 <?= $tool['pricing_type'] === 'Free' ? 'tag-green' : ($tool['pricing_type'] === 'Freemium' ? 'tag-blue' : 'tag-orange') ?>" style="font-size: 0.68rem;">
                                 <?= e($tool['pricing_type']) ?>
                             </span>
                         </div>
-                        <h4 class="fs-5 mb-1"><?= e($tool['name']) ?></h4>
-                        <div class="small text-muted mb-2"><?= e($tool['category_name']) ?></div>
-                        <div class="mb-3">
-                            <span class="text-warning small">
+                        <h4 class="fs-6 fw-bold mb-1"><?= e($tool['name']) ?></h4>
+                        <div class="text-muted mb-2" style="font-size: 0.72rem;"><?= e($tool['category_name']) ?></div>
+                        <div class="mb-2">
+                            <span class="text-warning small" style="font-size: 0.75rem;">
                                 <i class="fa-solid fa-star"></i>
                                 <strong class="text-dark ms-1"><?= number_format((float)$tool['user_rating'], 1) ?></strong>
                             </span>
                         </div>
-                        <p class="text-muted small mb-4 flex-grow-1">
+                        <p class="text-muted small mb-3 flex-grow-1" style="font-size: 0.78rem; line-height: 1.5;">
                             <?= e(truncate_text($tool['description'], 85)) ?>
                         </p>
-                        <div class="border-top pt-3">
-                            <a href="<?= APP_URL ?>/ai-tools.php?id=<?= $tool['id'] ?>" class="btn btn-sm btn-outline-custom w-100">
+                        <div class="border-top pt-2">
+                            <a href="<?= APP_URL ?>/ai-tools.php?id=<?= $tool['id'] ?>" class="btn btn-sm btn-outline-custom w-100 py-1" style="font-size: 0.78rem;">
                                 <?php if (is_logged_in()): ?>
-                                    Explore Tool <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                                    Explore Tool <i class="fa-solid fa-arrow-up-right-from-square ms-1" style="font-size: 0.65rem;"></i>
                                 <?php else: ?>
                                     <i class="fa-solid fa-lock me-1"></i> Members Only
                                 <?php endif; ?>
@@ -396,7 +396,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
 <!-- 6. Latest Technology Blogs Section -->
 <section class="section-padding bg-white border-top border-bottom">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
             <div>
                 <div class="section-subtitle">Technical Insights</div>
@@ -412,7 +412,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
         <div class="row g-4">
             <?php foreach ($latestBlogs as $blog): ?>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 col-xxl-3">
                     <div class="custom-card">
                         <?php 
                             $blogImg = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80';
@@ -452,7 +452,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
 <!-- 7. Skills and Technologies Showcase -->
 <section class="section-padding">
-    <div class="container text-center">
+    <div class="container-fluid px-3 px-md-4 px-xl-5 text-center">
         <div class="section-subtitle">Technical Proficiency</div>
         <h2 class="section-title mb-4">Technologies & Stacks Taught</h2>
         <p class="text-muted mx-auto mb-5" style="max-width: 650px;">
@@ -490,7 +490,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
 <!-- 8. Contact CTA Section -->
 <section class="section-padding bg-white border-top">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="p-5 rounded-4 text-center text-md-start" style="background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(139,92,246,0.08)); border: 1px solid rgba(37,99,235,0.15);">
             <div class="row align-items-center g-4">
                 <div class="col-md-8">

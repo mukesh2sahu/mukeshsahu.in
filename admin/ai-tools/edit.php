@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Security token expired. Please try again.';
     }
 
-    $name = trim($_POST['name'] ?? '');
+    $name = trim(preg_replace('/\s+/', ' ', (string)($_POST['name'] ?? '')));
     $categoryId = (int)($_POST['category_id'] ?? $tool['category_id']);
-    $officialUrl = trim($_POST['official_url'] ?? '');
+    $officialUrl = trim(preg_replace('/\s+/', '', (string)($_POST['official_url'] ?? '')));
     $pricingType = $_POST['pricing_type'] ?? 'Freemium';
     $userRating = (float)($_POST['user_rating'] ?? 4.5);
     $featuresRaw = trim($_POST['features'] ?? '');
@@ -89,19 +89,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<div class="custom-card p-4 p-md-5" style="max-width: 800px;">
-    <div class="mb-4 pb-2 border-bottom d-flex justify-content-between align-items-center">
+<div class="custom-card p-4 w-100" style="height: auto;">
+    <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2">
         <div>
             <h4 class="fs-5 fw-bold text-dark mb-0">Edit Tool: <?= e($tool['name']) ?></h4>
-            <span class="text-muted small">Update tool features, rating, and launch link</span>
+            <span class="text-muted small">Update platform details, category, rating, features, and official launch link</span>
         </div>
-        <a href="<?= ADMIN_URL ?>/ai-tools/index.php" class="btn btn-outline-secondary btn-sm">
-            &larr; Back to AI Directory
-        </a>
+        <div class="d-flex align-items-center gap-2">
+            <a href="<?= APP_URL ?>/ai-tool-detail.php?id=<?= $tool['id'] ?>" target="_blank" class="btn btn-outline-info btn-sm">
+                <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> View Public Page
+            </a>
+            <a href="<?= ADMIN_URL ?>/ai-tools/index.php" class="btn btn-outline-secondary btn-sm">
+                &larr; Back to AI Directory
+            </a>
+        </div>
     </div>
 
     <?php if (!empty($errors)): ?>
-        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
             <i class="fa-solid fa-circle-exclamation me-2"></i>
             <ul class="mb-0 ps-3">
                 <?php foreach ($errors as $err): ?>
@@ -116,11 +121,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?= csrf_field(); ?>
 
         <div class="row g-3 mb-3">
-            <div class="col-md-7">
+            <div class="col-lg-6 col-md-6">
                 <label for="name" class="form-label fw-semibold small">Tool Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="name" name="name" value="<?= e($tool['name']) ?>" required>
             </div>
-            <div class="col-md-5">
+            <div class="col-lg-6 col-md-6">
                 <label for="category_id" class="form-label fw-semibold small">Category <span class="text-danger">*</span></label>
                 <select class="form-select" id="category_id" name="category_id" required>
                     <?php foreach ($categories as $cat): ?>
@@ -131,11 +136,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-lg-8 col-md-8">
                 <label for="official_url" class="form-label fw-semibold small">Official Website URL <span class="text-danger">*</span></label>
                 <input type="url" class="form-control" id="official_url" name="official_url" value="<?= e($tool['official_url']) ?>" required>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-4">
                 <label for="pricing_type" class="form-label fw-semibold small">Pricing Model</label>
                 <select class="form-select" id="pricing_type" name="pricing_type">
                     <option value="Freemium" <?= $tool['pricing_type'] === 'Freemium' ? 'selected' : '' ?>>Freemium</option>
@@ -144,18 +149,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-4">
                 <label for="user_rating" class="form-label fw-semibold small">Rating (1.0 to 5.0)</label>
                 <input type="number" step="0.1" min="1.0" max="5.0" class="form-control" id="user_rating" name="user_rating" value="<?= e((string)$tool['user_rating']) ?>">
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-4">
                 <label for="status" class="form-label fw-semibold small">Status</label>
                 <select class="form-select" id="status" name="status">
                     <option value="active" <?= $tool['status'] === 'active' ? 'selected' : '' ?>>Active</option>
                     <option value="inactive" <?= $tool['status'] === 'inactive' ? 'selected' : '' ?>>Inactive</option>
                 </select>
             </div>
-            <div class="col-md-4 d-flex align-items-center pt-3">
+            <div class="col-lg-4 col-md-4 d-flex align-items-center pt-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" <?= $tool['is_featured'] ? 'checked' : '' ?>>
                     <label class="form-check-label fw-semibold small" for="is_featured">
@@ -164,20 +169,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
 
-            <div class="col-12">
-                <label for="features" class="form-label fw-semibold small">Key Features (One per line)</label>
-                <textarea class="form-control" id="features" name="features" rows="3"><?= e($featuresRaw) ?></textarea>
+            <div class="col-lg-6 col-md-12">
+                <label for="features" class="form-label fw-semibold small">Key Features (One feature per line)</label>
+                <textarea class="form-control" id="features" name="features" rows="5" placeholder="Feature 1&#10;Feature 2&#10;Feature 3"><?= e($featuresRaw) ?></textarea>
+                <div class="form-text small" style="font-size: 0.72rem;">Each line will appear as an interactive checkmark feature badge on the public listing.</div>
             </div>
 
-            <div class="col-12">
+            <div class="col-lg-6 col-md-12">
                 <label for="description" class="form-label fw-semibold small">Description & Capabilities <span class="text-danger">*</span></label>
-                <textarea class="form-control" id="description" name="description" rows="4" required><?= e($tool['description']) ?></textarea>
+                <textarea class="form-control" id="description" name="description" rows="5" placeholder="Detailed description of tool capabilities, integrations, and developer use-cases..." required><?= e($tool['description']) ?></textarea>
+                <div class="form-text small" style="font-size: 0.72rem;">Comprehensive explanation shown on the dedicated AI tool detail page.</div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-purple-custom px-4 py-2">
-            <i class="fa-solid fa-floppy-disk me-2"></i> Save Changes
-        </button>
+        <div class="d-flex align-items-center gap-2 pt-2 border-top">
+            <button type="submit" class="btn btn-purple-custom px-4 py-2">
+                <i class="fa-solid fa-floppy-disk me-2"></i> Save Changes
+            </button>
+            <a href="<?= ADMIN_URL ?>/ai-tools/index.php" class="btn btn-outline-secondary px-4 py-2">
+                Cancel
+            </a>
+        </div>
     </form>
 </div>
 

@@ -151,7 +151,7 @@ $recentInquiries = $inquiriesStmt->fetchAll();
     </div>
 
     <div class="col-sm-6 col-xl-3">
-        <div class="stat-card">
+        <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='<?= ADMIN_URL ?>/courses/enrollments.php'">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <span class="text-muted small fw-semibold text-uppercase">Enrollments</span>
                 <div class="stat-icon-wrapper bg-primary-subtle text-primary">
@@ -159,7 +159,9 @@ $recentInquiries = $inquiriesStmt->fetchAll();
                 </div>
             </div>
             <h3 class="fs-2 fw-bold text-dark mb-1"><?= $totalEnrollments ?></h3>
-            <div class="small text-muted">Course enrollments recorded</div>
+            <div class="small text-muted">
+                <a href="<?= ADMIN_URL ?>/courses/enrollments.php" class="text-primary fw-semibold text-decoration-none">View Enrollments &rarr;</a>
+            </div>
         </div>
     </div>
 

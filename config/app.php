@@ -12,10 +12,17 @@ ini_set('display_errors', '1');
 
 // Secure Session Configuration
 if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', '1');
-    ini_set('session.use_only_cookies', '1');
-    ini_set('session.cookie_samesite', 'Lax');
-    session_start();
+    if (!headers_sent()) {
+        ini_set('session.cookie_httponly', '1');
+        ini_set('session.use_only_cookies', '1');
+        ini_set('session.cookie_samesite', 'Lax');
+        session_start();
+    }
+}
+
+// Global Output Buffering (ensures header() redirects never fail due to premature output)
+if (!ob_get_level()) {
+    ob_start();
 }
 
 // Determine root directory and application URL

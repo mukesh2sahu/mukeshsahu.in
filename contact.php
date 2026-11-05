@@ -85,7 +85,7 @@ $youtube = get_setting('social_youtube', 'https://youtube.com');
 $twitter = get_setting('social_twitter', 'https://twitter.com');
 ?>
 
-<div class="container section-padding">
+<div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
     <div class="row g-5">
         <!-- Contact Information Column -->
         <div class="col-lg-5">

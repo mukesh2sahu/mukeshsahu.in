@@ -123,6 +123,30 @@ foreach ($userAccessPages as $path => $expectedText) {
     assert_test("Page $path contains expected content for user", strpos($res['body'], $expectedText) !== false, "Expected '$expectedText'");
 }
 
+// 4b. Test User Profile Update
+$profilePage = http_request($baseUrl . '/user/profile.php', 'GET', [], $cookieFileUser);
+$profileCsrf = extract_csrf($profilePage['body']);
+assert_test("Extracted CSRF from profile page", !empty($profileCsrf), "CSRF was empty");
+
+$profilePost = http_request($baseUrl . '/user/profile.php', 'POST', [
+    'csrf_token'    => $profileCsrf,
+    'name'          => 'Updated Regular User',
+    'mobile'        => '+91 9999988888',
+    'headline'      => 'Aspiring Full Stack Engineer',
+    'bio'           => 'Learning web development and cloud technologies.',
+    'skills'        => 'PHP, MySQL, JavaScript',
+    'location'      => 'Mumbai, India',
+    'github_url'    => 'https://github.com/regularuser',
+    'linkedin_url'  => 'https://linkedin.com/in/regularuser',
+    'portfolio_url' => 'https://regularuser.dev'
+], $cookieFileUser, false);
+
+assert_test("User profile update responds with 302 redirect", $profilePost['code'] === 302, "Got code {$profilePost['code']}");
+
+$profileResult = http_request($baseUrl . '/user/profile.php', 'GET', [], $cookieFileUser);
+assert_test("Profile page reflects updated name", strpos($profileResult['body'], 'Updated Regular User') !== false, "Name not updated");
+assert_test("Profile page shows success flash message", strpos($profileResult['body'], 'Your profile settings have been updated successfully') !== false, "Flash message missing");
+
 // Normal user denied admin access
 $adminAccessByNormalUser = http_request($baseUrl . '/admin/dashboard.php', 'GET', [], $cookieFileUser, false);
 assert_test("Normal user denied access to /admin/dashboard.php (redirects)", $adminAccessByNormalUser['code'] === 302, "Got code {$adminAccessByNormalUser['code']}");

@@ -88,7 +88,7 @@ $shareTitle = urlencode($blog['title']);
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="container section-padding">
+<div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb small">

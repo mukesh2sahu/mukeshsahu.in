@@ -78,7 +78,7 @@ $blogs = $blogsStmt->fetchAll();
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="container section-padding">
+<div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
     <!-- Header Banner -->
     <div class="p-4 p-md-5 rounded-4 mb-5" style="background: linear-gradient(135deg, #0f172a, #1e1b4b); color: #fff;">
         <div class="row align-items-center">
@@ -153,7 +153,7 @@ require_once __DIR__ . '/includes/header.php';
                     $blogImg = ASSETS_URL . '/uploads/blogs/' . e($blog['featured_image']);
                 }
             ?>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 col-xxl-3">
                     <div class="custom-card h-100">
                         <img src="<?= $blogImg ?>" alt="<?= e($blog['title']) ?>" class="blog-card-img">
                         <div class="p-4 flex-grow-1 d-flex flex-column">

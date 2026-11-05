@@ -6,37 +6,40 @@
 
 declare(strict_types=1);
 
-$pageTitle = 'Website Settings';
-$pageHeading = 'General & Personal Brand Configurations';
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../../includes/auth-check.php';
+
+// Enforce admin privileges before processing any action
+require_admin();
 
 $db = get_db();
 $errors = [];
 
+// Handle Save Settings BEFORE sending any HTML output
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = $_POST['csrf_token'] ?? '';
     if (!verify_csrf_token($token)) {
         $errors[] = 'Security token expired. Please try again.';
     } else {
         $settings = [
-            'site_name'        => trim($_POST['site_name'] ?? 'MukeshSahu'),
-            'site_tagline'     => trim($_POST['site_tagline'] ?? ''),
-            'site_email'       => trim($_POST['site_email'] ?? ''),
-            'site_phone'       => trim($_POST['site_phone'] ?? ''),
-            'site_address'     => trim($_POST['site_address'] ?? ''),
-            'social_linkedin'  => trim($_POST['social_linkedin'] ?? ''),
-            'social_github'    => trim($_POST['social_github'] ?? ''),
-            'social_youtube'   => trim($_POST['social_youtube'] ?? ''),
-            'social_twitter'   => trim($_POST['social_twitter'] ?? ''),
-            'seo_meta_title'   => trim($_POST['seo_meta_title'] ?? ''),
-            'seo_meta_description' => trim($_POST['seo_meta_description'] ?? ''),
-            'seo_meta_keywords'=> trim($_POST['seo_meta_keywords'] ?? ''),
-            'about_name'       => trim($_POST['about_name'] ?? ''),
-            'about_title'      => trim($_POST['about_title'] ?? ''),
-            'about_bio'        => trim($_POST['about_bio'] ?? ''),
-            'about_education'  => trim($_POST['about_education'] ?? '[]'),
-            'about_experience' => trim($_POST['about_experience'] ?? '[]'),
-            'about_skills'     => trim($_POST['about_skills'] ?? '[]')
+            'site_name'        => trim((string)($_POST['site_name'] ?? 'MukeshSahu')),
+            'site_tagline'     => trim((string)($_POST['site_tagline'] ?? '')),
+            'site_email'       => trim((string)($_POST['site_email'] ?? '')),
+            'site_phone'       => trim((string)($_POST['site_phone'] ?? '')),
+            'site_address'     => trim((string)($_POST['site_address'] ?? '')),
+            'social_linkedin'  => trim((string)($_POST['social_linkedin'] ?? '')),
+            'social_github'    => trim((string)($_POST['social_github'] ?? '')),
+            'social_youtube'   => trim((string)($_POST['social_youtube'] ?? '')),
+            'social_twitter'   => trim((string)($_POST['social_twitter'] ?? '')),
+            'seo_meta_title'   => trim((string)($_POST['seo_meta_title'] ?? '')),
+            'seo_meta_description' => trim((string)($_POST['seo_meta_description'] ?? '')),
+            'seo_meta_keywords'=> trim((string)($_POST['seo_meta_keywords'] ?? '')),
+            'about_name'       => trim((string)($_POST['about_name'] ?? '')),
+            'about_title'      => trim((string)($_POST['about_title'] ?? '')),
+            'about_bio'        => trim((string)($_POST['about_bio'] ?? '')),
+            'about_education'  => trim((string)($_POST['about_education'] ?? '[]')),
+            'about_experience' => trim((string)($_POST['about_experience'] ?? '[]')),
+            'about_skills'     => trim((string)($_POST['about_skills'] ?? '[]'))
         ];
 
         foreach ($settings as $key => $val) {
@@ -69,9 +72,13 @@ $aboutBio = get_setting('about_bio', '');
 $aboutEducation = get_setting('about_education', '[]');
 $aboutExperience = get_setting('about_experience', '[]');
 $aboutSkills = get_setting('about_skills', '[]');
+
+$pageTitle = 'Website Settings';
+$pageHeading = 'General & Personal Brand Configurations';
+require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="custom-card p-4 p-md-5">
+<div class="custom-card p-4 w-100" style="height: auto;">
     <div class="mb-4 pb-2 border-bottom">
         <h4 class="fs-5 fw-bold text-dark mb-1">Platform Configuration & Branding</h4>
         <p class="text-muted small mb-0">Update website identities, contact channels, About Me content, and SEO meta tags</p>

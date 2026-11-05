@@ -72,20 +72,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             // Update or Insert into user_profiles
-            $updProfile = $db->prepare("
-                INSERT INTO user_profiles (user_id, headline, bio, avatar, skills, location, github_url, linkedin_url, portfolio_url)
-                VALUES (:uid, :headline, :bio, :avatar, :skills, :location, :github, :linkedin, :portfolio)
-                ON DUPLICATE KEY UPDATE 
-                    headline = :headline,
-                    bio = :bio,
-                    avatar = :avatar,
-                    skills = :skills,
-                    location = :location,
-                    github_url = :github,
-                    linkedin_url = :linkedin,
-                    portfolio_url = :portfolio,
-                    updated_at = NOW()
-            ");
+            $checkProfile = $db->prepare("SELECT id FROM user_profiles WHERE user_id = :uid LIMIT 1");
+            $checkProfile->execute([':uid' => $userId]);
+            $profileExists = (bool)$checkProfile->fetchColumn();
+
+            if ($profileExists) {
+                $updProfile = $db->prepare("
+                    UPDATE user_profiles 
+                    SET headline = :headline,
+                        bio = :bio,
+                        avatar = :avatar,
+                        skills = :skills,
+                        location = :location,
+                        github_url = :github,
+                        linkedin_url = :linkedin,
+                        portfolio_url = :portfolio,
+                        updated_at = NOW()
+                    WHERE user_id = :uid
+                ");
+            } else {
+                $updProfile = $db->prepare("
+                    INSERT INTO user_profiles (user_id, headline, bio, avatar, skills, location, github_url, linkedin_url, portfolio_url, updated_at)
+                    VALUES (:uid, :headline, :bio, :avatar, :skills, :location, :github, :linkedin, :portfolio, NOW())
+                ");
+            }
+
             $updProfile->execute([
                 ':uid'       => $userId,
                 ':headline'  => $headline,
@@ -116,16 +127,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="container section-padding">
+<div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
     <div class="row g-4">
         <!-- Sidebar -->
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-xl-3 col-xxl-2">
             <?php require_once __DIR__ . '/sidebar.php'; ?>
         </div>
 
         <!-- Profile Form Content -->
-        <div class="col-lg-9">
-            <div class="custom-card p-4 p-md-5">
+        <div class="col-lg-9 col-xl-9 col-xxl-10">
+            <div class="custom-card card-static p-4 p-md-5 w-100">
                 <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
                     <div>
                         <h3 class="fs-4 fw-bold mb-1">Account & Profile Settings</h3>
@@ -164,28 +175,28 @@ require_once __DIR__ . '/../includes/header.php';
                     </div>
 
                     <div class="row g-3 mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xl-3">
                             <label for="name" class="form-label fw-semibold small">Full Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="name" name="name" value="<?= e($userData['name'] ?? '') ?>" required>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xl-3">
                             <label for="email" class="form-label fw-semibold small">Email Address</label>
                             <input type="email" class="form-control bg-light" id="email" value="<?= e($userData['email'] ?? '') ?>" readonly>
-                            <div class="form-text small">Email cannot be changed directly for security reasons.</div>
+                            <div class="form-text small">Cannot be changed directly.</div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xl-3">
                             <label for="mobile" class="form-label fw-semibold small">Mobile Number</label>
                             <input type="text" class="form-control" id="mobile" name="mobile" value="<?= e($userData['mobile'] ?? '') ?>">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xl-3">
                             <label for="location" class="form-label fw-semibold small">Current Location</label>
                             <input type="text" class="form-control" id="location" name="location" value="<?= e($userData['location'] ?? '') ?>" placeholder="e.g. Bengaluru, India">
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <label for="headline" class="form-label fw-semibold small">Professional Headline</label>
                             <input type="text" class="form-control" id="headline" name="headline" value="<?= e($userData['headline'] ?? '') ?>" placeholder="e.g. Full Stack Developer | Aspiring AI Engineer">
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <label for="skills" class="form-label fw-semibold small">Technical Skills (comma-separated)</label>
                             <input type="text" class="form-control" id="skills" name="skills" value="<?= e($userData['skills'] ?? '') ?>" placeholder="e.g. PHP, MySQL, React, Python, Docker">
                         </div>

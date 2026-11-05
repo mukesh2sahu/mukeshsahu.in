@@ -17,7 +17,7 @@ $twitter = get_setting('social_twitter', 'https://twitter.com');
 </main>
 
 <footer class="footer-custom">
-    <div class="container">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
         <div class="row g-4 mb-5">
             <!-- Col 1: Brand & Bio -->
             <div class="col-lg-4 col-md-6">

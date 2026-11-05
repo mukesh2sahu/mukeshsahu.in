@@ -55,13 +55,13 @@ $stmt = $db->query("
 $tools = $stmt->fetchAll();
 ?>
 
-<div class="custom-card p-4">
-    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4 pb-2 border-bottom gap-3">
+<div class="custom-card p-3" style="height: auto;">
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-3 pb-2 border-bottom gap-2">
         <div>
-            <h4 class="fs-5 fw-bold text-dark mb-1">AI Tools Directory</h4>
-            <p class="text-muted small mb-0">Total <?= count($tools) ?> artificial intelligence platforms curated</p>
+            <h4 class="fs-6 fw-bold text-dark mb-0">AI Tools Directory</h4>
+            <span class="text-muted small" style="font-size: 0.75rem;">Total <?= count($tools) ?> artificial intelligence platforms curated</span>
         </div>
-        <a href="<?= ADMIN_URL ?>/ai-tools/add.php" class="btn btn-purple-custom btn-sm">
+        <a href="<?= ADMIN_URL ?>/ai-tools/add.php" class="btn btn-purple-custom btn-sm py-1 px-3">
             <i class="fa-solid fa-plus me-1"></i> Add New AI Tool
         </a>
     </div>
