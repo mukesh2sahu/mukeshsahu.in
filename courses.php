@@ -160,13 +160,13 @@ require_once __DIR__ . '/includes/header.php';
 
     <!-- Courses Grid -->
     <?php if (!empty($courses)): ?>
-        <div class="row g-4">
+        <div class="row g-3 g-xl-4">
             <?php foreach ($courses as $c): 
                 $isEnrolled = $c['progress_percentage'] !== null;
                 $perc = (float)($c['progress_percentage'] ?? 0);
                 $targetLectureId = $c['last_lecture_id'] ?: $c['first_lecture_id'];
             ?>
-                <div class="col-lg-4 col-md-6 col-xxl-3">
+                <div class="col-lg-3 col-md-6 col-12">
                     <div class="custom-card h-100">
                         <div class="course-thumb-wrapper">
                             <?php 
@@ -186,7 +186,7 @@ require_once __DIR__ . '/includes/header.php';
                                 <span class="badge bg-light text-dark border"><?= e($c['skill_level']) ?></span>
                             </div>
 
-                            <h4 class="fs-5 mb-2">
+                            <h4 class="course-title">
                                 <a href="<?= APP_URL ?>/course-detail.php?id=<?= $c['id'] ?>" class="text-dark hover-primary">
                                     <?= e($c['title']) ?>
                                 </a>
@@ -197,7 +197,7 @@ require_once __DIR__ . '/includes/header.php';
                             </div>
 
                             <p class="text-muted small flex-grow-1 mb-3">
-                                <?= e(truncate_text($c['description'], 110)) ?>
+                                <?= e(truncate_text($c['description'], 90)) ?>
                             </p>
 
                             <?php if ($isEnrolled): ?>

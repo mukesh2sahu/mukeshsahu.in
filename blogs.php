@@ -142,37 +142,38 @@ require_once __DIR__ . '/includes/header.php';
 
     <!-- Blogs Grid -->
     <?php if (!empty($blogs)): ?>
-        <div class="row g-4">
+        <div class="row g-3 g-xl-4">
             <?php foreach ($blogs as $blog): 
-                $blogImg = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80';
-                if ($blog['id'] == 1) $blogImg = 'https://images.unsplash.com/photo-1599507593499-a3f7f7d97f66?w=600&auto=format&fit=crop&q=80';
+                $blogImg = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&auto=format&fit=crop&q=80';
+                if ($blog['id'] == 1) $blogImg = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80';
                 if ($blog['id'] == 2) $blogImg = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop&q=80';
                 if ($blog['id'] == 3) $blogImg = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80';
+                if ($blog['id'] == 4) $blogImg = 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&auto=format&fit=crop&q=80';
 
                 if (!empty($blog['featured_image']) && file_exists(APP_ROOT . '/assets/uploads/blogs/' . $blog['featured_image'])) {
                     $blogImg = ASSETS_URL . '/uploads/blogs/' . e($blog['featured_image']);
                 }
             ?>
-                <div class="col-lg-4 col-md-6 col-xxl-3">
-                    <div class="custom-card h-100">
-                        <img src="<?= $blogImg ?>" alt="<?= e($blog['title']) ?>" class="blog-card-img">
-                        <div class="p-4 flex-grow-1 d-flex flex-column">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="custom-card h-100 d-flex flex-column">
+                        <img src="<?= $blogImg ?>" alt="<?= e($blog['title']) ?>" class="blog-card-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&auto=format&fit=crop&q=80';">
+                        <div class="p-3 p-xl-4 flex-grow-1 d-flex flex-column">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <span class="card-tag tag-purple"><?= e($blog['category_name']) ?></span>
                                 <span class="blog-meta"><i class="fa-regular fa-calendar me-1"></i> <?= format_date($blog['published_at']) ?></span>
                             </div>
 
-                            <h4 class="fs-5 mb-2">
+                            <h4 class="blog-title">
                                 <a href="<?= APP_URL ?>/blog-detail.php?slug=<?= e($blog['slug']) ?>" class="text-dark hover-primary">
                                     <?= e($blog['title']) ?>
                                 </a>
                             </h4>
 
-                            <p class="text-muted small flex-grow-1 mb-3">
-                                <?= e(truncate_text($blog['excerpt'] ?? $blog['content'], 115)) ?>
+                            <p class="blog-excerpt flex-grow-1 mb-3">
+                                <?= e(truncate_text($blog['excerpt'] ?? $blog['content'], 100)) ?>
                             </p>
 
-                            <div class="pt-3 border-top d-flex align-items-center justify-content-between">
+                            <div class="pt-3 border-top mt-auto d-flex align-items-center justify-content-between">
                                 <span class="small text-muted">
                                     <i class="fa-regular fa-eye me-1"></i> <?= (int)$blog['views_count'] ?> views
                                 </span>

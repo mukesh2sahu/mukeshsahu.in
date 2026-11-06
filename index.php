@@ -17,33 +17,33 @@ $jobsStmt = $db->query("
     JOIN job_categories c ON j.category_id = c.id 
     WHERE j.status = 'published' 
     ORDER BY j.is_featured DESC, j.created_at DESC 
-    LIMIT 3
+    LIMIT 4
 ");
 $latestJobs = $jobsStmt->fetchAll();
 
-// 2. Fetch Featured Courses (Limit 3)
+// 2. Fetch Featured Courses (Limit 4)
 $coursesStmt = $db->query("
     SELECT c.*, cat.name AS category_name 
     FROM courses c 
     JOIN course_categories cat ON c.category_id = cat.id 
     WHERE c.status = 'published' 
     ORDER BY c.is_featured DESC, c.created_at DESC 
-    LIMIT 3
+    LIMIT 4
 ");
 $featuredCourses = $coursesStmt->fetchAll();
 
-// 3. Fetch Featured AI Tools (Limit 4)
+// 3. Fetch Featured AI Tools (Limit 6)
 $aiToolsStmt = $db->query("
     SELECT t.*, cat.name AS category_name, cat.icon AS category_icon 
     FROM ai_tools t 
     JOIN ai_tool_categories cat ON t.category_id = cat.id 
     WHERE t.status = 'active' 
     ORDER BY t.is_featured DESC, t.user_rating DESC 
-    LIMIT 4
+    LIMIT 6
 ");
 $featuredAiTools = $aiToolsStmt->fetchAll();
 
-// 4. Fetch Latest Blogs (Limit 3)
+// 4. Fetch Latest Blogs (Limit 4)
 $blogsStmt = $db->query("
     SELECT b.*, cat.name AS category_name, u.name AS author_name 
     FROM blogs b 
@@ -51,7 +51,7 @@ $blogsStmt = $db->query("
     LEFT JOIN users u ON b.author_id = u.id 
     WHERE b.status = 'published' 
     ORDER BY b.published_at DESC 
-    LIMIT 3
+    LIMIT 4
 ");
 $latestBlogs = $blogsStmt->fetchAll();
 
@@ -225,10 +225,10 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
             </div>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3 g-xl-4">
             <?php foreach ($latestJobs as $job): ?>
-                <div class="col-lg-4 col-md-6 col-xxl-3">
-                    <div class="custom-card job-card">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="custom-card job-card h-100">
                         <div class="d-flex align-items-start justify-content-between mb-3">
                             <div class="job-company-logo">
                                 <i class="fa-solid <?= e($job['category_icon'] ?? 'fa-briefcase') ?>"></i>
@@ -247,7 +247,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
                         </div>
                         <div class="d-flex flex-wrap gap-2 mb-3">
                             <span class="job-meta-pill bg-light border px-2 py-1 rounded">
-                                <i class="fa-solid fa-indian-rupee-sign text-success"></i> <?= e($job['salary_range']) ?>
+                                <i class="fa-solid fa-indian-rupee-sign text-success"></i> <?= e(format_salary($job['salary_range'])) ?>
                             </span>
                             <span class="job-meta-pill bg-light border px-2 py-1 rounded">
                                 <i class="fa-solid fa-briefcase text-primary"></i> <?= e($job['experience_level']) ?>
@@ -291,10 +291,10 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
             </div>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3 g-xl-4">
             <?php foreach ($featuredCourses as $course): ?>
-                <div class="col-lg-4 col-md-6 col-xxl-3">
-                    <div class="custom-card">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="custom-card h-100">
                         <div class="course-thumb-wrapper">
                             <?php 
                                 $thumbUrl = !empty($course['thumbnail']) && file_exists(APP_ROOT . '/assets/uploads/thumbnails/' . $course['thumbnail'])
@@ -311,19 +311,19 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
                                 <span class="card-tag tag-blue"><?= e($course['category_name']) ?></span>
                                 <span class="badge bg-light text-dark border"><?= e($course['skill_level']) ?></span>
                             </div>
-                            <h4 class="fs-5 mb-2">
-                                <a href="<?= APP_URL ?>/courses.php?id=<?= $course['id'] ?>" class="text-dark hover-primary">
+                            <h4 class="course-title">
+                                <a href="<?= APP_URL ?>/course-detail.php?id=<?= $course['id'] ?>" class="text-dark hover-primary">
                                     <?= e($course['title']) ?>
                                 </a>
                             </h4>
                             <p class="text-muted small flex-grow-1 mb-3">
-                                <?= e(truncate_text($course['description'], 110)) ?>
+                                <?= e(truncate_text($course['description'], 90)) ?>
                             </p>
                             <div class="pt-3 border-top d-flex align-items-center justify-content-between">
                                 <div class="small text-muted">
                                     <i class="fa-solid fa-layer-group me-1 text-primary"></i> <?= (int)$course['total_lectures'] ?> Lectures
                                 </div>
-                                <a href="<?= APP_URL ?>/courses.php?id=<?= $course['id'] ?>" class="btn btn-sm btn-primary-custom">
+                                <a href="<?= APP_URL ?>/course-detail.php?id=<?= $course['id'] ?>" class="btn btn-sm btn-primary-custom">
                                     <?php if (is_logged_in()): ?>
                                         Access Course <i class="fa-solid fa-play ms-1"></i>
                                     <?php else: ?>
@@ -357,8 +357,8 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
 
         <div class="row g-3">
             <?php foreach ($featuredAiTools as $tool): ?>
-                <div class="col-lg-3 col-md-6 col-xxl-2">
-                    <div class="custom-card ai-tool-card">
+                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                    <div class="custom-card ai-tool-card h-100 d-flex flex-column">
                         <div class="ai-tool-header mb-2">
                             <div class="ai-tool-icon">
                                 <i class="fa-solid <?= e($tool['category_icon'] ?? 'fa-robot') ?>"></i>
@@ -367,7 +367,7 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
                                 <?= e($tool['pricing_type']) ?>
                             </span>
                         </div>
-                        <h4 class="fs-6 fw-bold mb-1"><?= e($tool['name']) ?></h4>
+                        <h4 class="ai-tool-title mb-1" title="<?= e($tool['name']) ?>"><?= e($tool['name']) ?></h4>
                         <div class="text-muted mb-2" style="font-size: 0.72rem;"><?= e($tool['category_name']) ?></div>
                         <div class="mb-2">
                             <span class="text-warning small" style="font-size: 0.75rem;">
@@ -375,10 +375,10 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
                                 <strong class="text-dark ms-1"><?= number_format((float)$tool['user_rating'], 1) ?></strong>
                             </span>
                         </div>
-                        <p class="text-muted small mb-3 flex-grow-1" style="font-size: 0.78rem; line-height: 1.5;">
-                            <?= e(truncate_text($tool['description'], 85)) ?>
+                        <p class="text-muted small mb-3 flex-grow-1" style="font-size: 0.76rem; line-height: 1.45;">
+                            <?= e(truncate_text($tool['description'], 70)) ?>
                         </p>
-                        <div class="border-top pt-2">
+                        <div class="border-top pt-2 mt-auto">
                             <a href="<?= APP_URL ?>/ai-tools.php?id=<?= $tool['id'] ?>" class="btn btn-sm btn-outline-custom w-100 py-1" style="font-size: 0.78rem;">
                                 <?php if (is_logged_in()): ?>
                                     Explore Tool <i class="fa-solid fa-arrow-up-right-from-square ms-1" style="font-size: 0.65rem;"></i>
@@ -410,31 +410,36 @@ $totalAiTools = $db->query("SELECT COUNT(*) FROM ai_tools WHERE status = 'active
             </div>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3 g-xl-4">
             <?php foreach ($latestBlogs as $blog): ?>
-                <div class="col-lg-4 col-md-6 col-xxl-3">
-                    <div class="custom-card">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="custom-card h-100 d-flex flex-column">
                         <?php 
-                            $blogImg = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80';
-                            if ($blog['id'] == 1) $blogImg = 'https://images.unsplash.com/photo-1599507593499-a3f7f7d97f66?w=600&auto=format&fit=crop&q=80';
+                            $blogImg = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&auto=format&fit=crop&q=80';
+                            if ($blog['id'] == 1) $blogImg = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80';
                             if ($blog['id'] == 2) $blogImg = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop&q=80';
                             if ($blog['id'] == 3) $blogImg = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80';
+                            if ($blog['id'] == 4) $blogImg = 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&auto=format&fit=crop&q=80';
+
+                            if (!empty($blog['featured_image']) && file_exists(APP_ROOT . '/assets/uploads/blogs/' . $blog['featured_image'])) {
+                                $blogImg = ASSETS_URL . '/uploads/blogs/' . e($blog['featured_image']);
+                            }
                         ?>
-                        <img src="<?= $blogImg ?>" alt="<?= e($blog['title']) ?>" class="blog-card-img">
-                        <div class="p-4 flex-grow-1 d-flex flex-direction-column flex-column">
+                        <img src="<?= $blogImg ?>" alt="<?= e($blog['title']) ?>" class="blog-card-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&auto=format&fit=crop&q=80';">
+                        <div class="p-3 p-xl-4 flex-grow-1 d-flex flex-column">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <span class="card-tag tag-purple"><?= e($blog['category_name']) ?></span>
                                 <span class="blog-meta"><i class="fa-regular fa-calendar me-1"></i> <?= format_date($blog['published_at']) ?></span>
                             </div>
-                            <h4 class="fs-5 mb-2">
+                            <h4 class="blog-title">
                                 <a href="<?= APP_URL ?>/blog-detail.php?slug=<?= e($blog['slug']) ?>" class="text-dark hover-primary">
                                     <?= e($blog['title']) ?>
                                 </a>
                             </h4>
-                            <p class="text-muted small flex-grow-1 mb-3">
-                                <?= e(truncate_text($blog['excerpt'] ?? $blog['content'], 110)) ?>
+                            <p class="blog-excerpt flex-grow-1 mb-3">
+                                <?= e(truncate_text($blog['excerpt'] ?? $blog['content'], 100)) ?>
                             </p>
-                            <div class="pt-3 border-top d-flex align-items-center justify-content-between">
+                            <div class="pt-3 border-top mt-auto d-flex align-items-center justify-content-between">
                                 <span class="small text-muted">
                                     <i class="fa-regular fa-eye me-1"></i> <?= (int)$blog['views_count'] ?> views
                                 </span>

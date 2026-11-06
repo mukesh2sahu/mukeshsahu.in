@@ -222,7 +222,7 @@ require_once __DIR__ . '/../includes/header.php';
                                         </div>
                                         <div class="small text-muted mb-2"><?= e($job['company_name']) ?> &bull; <?= e($job['location']) ?></div>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <span class="small fw-semibold text-success"><?= e($job['salary_range']) ?></span>
+                                            <span class="small fw-semibold text-success"><i class="fa-solid fa-indian-rupee-sign me-1"></i><?= e(format_salary($job['salary_range'])) ?></span>
                                             <a href="<?= APP_URL ?>/jobs.php?id=<?= $job['id'] ?>" class="btn btn-sm btn-outline-custom py-0 px-2 small">
                                                 Details
                                             </a>

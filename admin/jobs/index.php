@@ -125,7 +125,7 @@ $jobs = $stmt->fetchAll();
                             <div class="small text-muted"><?= e(truncate_text($j['location'], 20)) ?></div>
                         </td>
                         <td>
-                            <span class="small fw-semibold text-success"><?= e($j['salary_range']) ?></span>
+                            <span class="small fw-semibold text-success"><i class="fa-solid fa-indian-rupee-sign me-1"></i><?= e(format_salary($j['salary_range'])) ?></span>
                         </td>
                         <td>
                             <?php if ($j['status'] === 'published'): ?>

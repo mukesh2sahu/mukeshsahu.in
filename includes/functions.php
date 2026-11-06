@@ -426,3 +426,14 @@ function recalculate_course_progress(int $userId, int $courseId): float {
 
     return $percentage;
 }
+
+/**
+ * Clean & Format Job Salary Display
+ * Strips corrupted encoding artifacts (e.g. '???') and duplicate currency symbols
+ */
+function format_salary(?string $salary): string {
+    if (empty($salary)) return 'Competitive';
+    $clean = str_replace(['???', '?', '₹'], '', $salary);
+    $clean = trim(preg_replace('/\s+/', ' ', $clean));
+    return $clean ?: 'Competitive';
+}

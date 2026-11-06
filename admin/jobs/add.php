@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $location = trim($_POST['location'] ?? '');
     $workMode = $_POST['work_mode'] ?? 'Remote';
     $experienceLevel = trim($_POST['experience_level'] ?? '');
-    $salaryRange = trim($_POST['salary_range'] ?? '');
+    $salaryRange = format_salary(trim($_POST['salary_range'] ?? ''));
     $employmentType = $_POST['employment_type'] ?? 'Full-time';
     $requiredSkills = trim($_POST['required_skills'] ?? '');
     $description = trim($_POST['description'] ?? '');
@@ -164,7 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="col-md-4">
                 <label for="salary_range" class="form-label fw-semibold small">Salary Range <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="salary_range" name="salary_range" value="<?= e($salaryRange) ?>" placeholder="e.g. ₹10,00,000 - ₹16,00,000 P.A." required>
+                <div class="input-group">
+                    <span class="input-group-text bg-light"><i class="fa-solid fa-indian-rupee-sign text-success"></i></span>
+                    <input type="text" class="form-control" id="salary_range" name="salary_range" value="<?= e($salaryRange) ?>" placeholder="10,00,000 - 16,00,000 P.A." required>
+                </div>
             </div>
 
             <div class="col-md-4">

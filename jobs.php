@@ -61,7 +61,7 @@ $whereClause = implode(' AND ', $where);
 
 // Pagination
 $page = max(1, (int)($_GET['page'] ?? 1));
-$perPage = 9;
+$perPage = 12;
 $offset = ($page - 1) * $perPage;
 
 // Total count
@@ -188,9 +188,9 @@ require_once __DIR__ . '/includes/header.php';
 
     <!-- Job Cards Grid -->
     <?php if (!empty($jobs)): ?>
-        <div class="row g-4">
+        <div class="row g-3 g-xl-4">
             <?php foreach ($jobs as $job): ?>
-                <div class="col-lg-4 col-md-6 col-xxl-3">
+                <div class="col-lg-3 col-md-6 col-12">
                     <div class="custom-card job-card h-100">
                         <div class="d-flex align-items-start justify-content-between mb-3">
                             <div class="job-company-logo">
@@ -225,7 +225,7 @@ require_once __DIR__ . '/includes/header.php';
 
                         <div class="d-flex flex-wrap gap-2 mb-3">
                             <span class="job-meta-pill bg-light border px-2 py-1 rounded">
-                                <i class="fa-solid fa-indian-rupee-sign text-success"></i> <?= e($job['salary_range']) ?>
+                                <i class="fa-solid fa-indian-rupee-sign text-success"></i> <?= e(format_salary($job['salary_range'])) ?>
                             </span>
                             <span class="job-meta-pill bg-light border px-2 py-1 rounded">
                                 <i class="fa-solid fa-briefcase text-primary"></i> <?= e($job['experience_level']) ?>

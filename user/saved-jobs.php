@@ -83,7 +83,7 @@ require_once __DIR__ . '/../includes/header.php';
                                             </div>
                                             <div class="d-flex flex-wrap gap-2">
                                                 <span class="badge bg-white text-success border">
-                                                    <i class="fa-solid fa-indian-rupee-sign"></i> <?= e($job['salary_range']) ?>
+                                                    <i class="fa-solid fa-indian-rupee-sign"></i> <?= e(format_salary($job['salary_range'])) ?>
                                                 </span>
                                                 <span class="badge bg-white text-primary border">
                                                     <i class="fa-solid fa-briefcase"></i> <?= e($job['experience_level']) ?>

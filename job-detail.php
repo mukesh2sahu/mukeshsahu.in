@@ -102,7 +102,7 @@ require_once __DIR__ . '/includes/header.php';
                 <div class="row g-3 mb-4 p-3 bg-light rounded-3 border">
                     <div class="col-6 col-sm-3">
                         <div class="small text-muted mb-1"><i class="fa-solid fa-indian-rupee-sign text-success me-1"></i> Salary Range</div>
-                        <div class="fw-bold text-dark small"><?= e($job['salary_range']) ?></div>
+                        <div class="fw-bold text-dark small"><i class="fa-solid fa-indian-rupee-sign text-success me-1"></i><?= e(format_salary($job['salary_range'])) ?></div>
                     </div>
                     <div class="col-6 col-sm-3">
                         <div class="small text-muted mb-1"><i class="fa-solid fa-briefcase text-primary me-1"></i> Experience</div>
@@ -197,7 +197,7 @@ require_once __DIR__ . '/includes/header.php';
                                 </h6>
                                 <div class="small text-muted mb-2"><?= e($rel['company_name']) ?> &bull; <?= e($rel['location']) ?></div>
                                 <div class="d-flex justify-content-between align-items-center small">
-                                    <span class="fw-semibold text-success"><?= e($rel['salary_range']) ?></span>
+                                    <span class="fw-semibold text-success"><i class="fa-solid fa-indian-rupee-sign me-1"></i><?= e(format_salary($rel['salary_range'])) ?></span>
                                     <span class="badge bg-white text-dark border"><?= e($rel['work_mode']) ?></span>
                                 </div>
                             </div>
